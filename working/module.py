@@ -24,17 +24,14 @@ def load_excel():
 
 def add_data(sheets):
     data = []
-    delete_index = [8, 2, 3, 3, 3]
     for sheetNum, sheet in enumerate(sheets) :
         for idx, row in enumerate(sheet.rows):
             data.append([row[1].value, row[2].value])
-        del data[:delete_index[sheetNum]]
     return data
 
 def del_garbages(data, dataf):
     for index, row in enumerate(data) :
-        if row[0] == None or row[1] == '조  치  사  항' :
-            del data[index]
+        if row[0] == None or row[1] == None :
             continue
         dataf.loc[index, 'nation_kr'] = row[0]
         dataf.loc[index, 'detail'] = row[1]
