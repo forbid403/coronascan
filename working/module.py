@@ -31,10 +31,17 @@ def add_data(sheets):
 
 def del_garbages(data, dataf):
     for index, row in enumerate(data) :
-        if row[0] == None or row[1] == None :
+        if row[1] == None or row[1] == '조  치  사  항':
             continue
+          
+        #엑셀 페이지 때문에 잘린 것들 처리
+        if row[0] == None:
+            dataf.loc[index-2, 'detail'] += row[1]
+            continue;
+                
         #개행 문자 없애기 (국가명)
         row[0] = row[0].replace("\n", "")
+
         dataf.loc[index, 'nation_kr'] = row[0]
         dataf.loc[index, 'detail'] = row[1]
     dataf = dataf.reset_index(drop = True)
