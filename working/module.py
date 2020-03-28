@@ -33,6 +33,8 @@ def del_garbages(data, dataf):
     for index, row in enumerate(data) :
         if row[0] == None or row[1] == None :
             continue
+        #개행 문자 없애기 (국가명)
+        row[0] = row[0].replace("\n", "")
         dataf.loc[index, 'nation_kr'] = row[0]
         dataf.loc[index, 'detail'] = row[1]
     dataf = dataf.reset_index(drop = True)
