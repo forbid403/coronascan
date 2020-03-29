@@ -36,9 +36,12 @@ def del_garbages(data, dataf):
           
         #엑셀 페이지 때문에 잘린 것들 처리
         if row[0] == None:
-            dataf.loc[index-2, 'detail'] += row[1]
+            try :
+                dataf.loc[index-2, 'detail'] += row[1]
+            except :
+                dataf.loc[index-1, 'detail'] += row[1]
             continue;
-                
+        
         #개행 문자 없애기 (국가명)
         row[0] = row[0].replace("\n", "")
 
@@ -46,6 +49,7 @@ def del_garbages(data, dataf):
         dataf.loc[index, 'detail'] = row[1]
     dataf = dataf.reset_index(drop = True)
     return data, dataf
+
 
 def add_nation_eng(dataf) : 
     countries = english_countries()
